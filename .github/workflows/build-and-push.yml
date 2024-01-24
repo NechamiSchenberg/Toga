@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -23,7 +23,7 @@ jobs:
           context: .
 
           file: Dockerfile
-          platforms: windows/amd64
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: ghcr.io/NechamiSchenberg/toga-test:latest
         env:
