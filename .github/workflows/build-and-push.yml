@@ -23,6 +23,6 @@ jobs:
           platforms: windows/amd64
           push: true
           tags: ghcr.io/NechamiSchenberg/toga-test:latest
-          secrets:
-            DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-            DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
