@@ -21,4 +21,4 @@ jobs:
         run: echo "${{ secrets.TOKEN_GITHUB }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Push Docker Image to GitHub Container Registry
-        run: docker push ghcr.io/NechamiSchenberg/toga-test:latest
+        run: docker push ghcr.io/toga/toga-test:latest
