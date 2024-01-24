@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Docker Build and Push
 
 on:
   push:
@@ -7,25 +7,23 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
+
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v2
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-        with:
-          driver-opts: image=mcr.microsoft.com/windows/servercore:ltsc2019
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2.10.0
-        with:
-          context: .
+      - name: Build and Push Docker Image
+        run: |
+          docker buildx create --use
+          docker buildx inspect --bootstrap
+          docker buildx build -t ghcr.io/NechamiSchenberg/toga-test:latest .
 
-          file: Dockerfile
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: ghcr.io/NechamiSchenberg/toga-test:latest
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.TOKEN_GITHUB }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Push Docker Image to GitHub Container Registry
+        run: docker push ghcr.io/NechamiSchenberg/toga-test:latest
