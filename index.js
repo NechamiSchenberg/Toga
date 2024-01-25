@@ -9,11 +9,11 @@ const singleNumber = (nums) => {
         result^=element
     });
     return result
-    
+
 }
 
-app.get('/:nums', (req, res) => {
-    const nums = req.params.nums.split(',').map(num => parseInt(num.trim(), 10));
+app.get('/', (req, res) => {
+    const nums = JSON.parse(process.env.NUMS || '[]');
     const result = singleNumber(nums)
     console.log(result);
     res.json({ result: result });
