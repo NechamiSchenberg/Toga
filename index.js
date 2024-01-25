@@ -9,6 +9,7 @@ const singleNumber = (nums) => {
         result^=element
     });
     return result
+    
 }
 
 app.get('/:nums', (req, res) => {
